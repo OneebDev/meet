@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import { Mic, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface VideoTileProps {
@@ -14,6 +14,7 @@ interface VideoTileProps {
   currentLanguage?: string;
   subtitleText?: string;
   className?: string;
+  stream?: MediaStream;
 }
 
 export const VideoTile = ({
@@ -26,8 +27,17 @@ export const VideoTile = ({
   currentLanguage = 'English',
   subtitleText,
   className,
+  stream,
 }: VideoTileProps) => {
   const [showControls, setShowControls] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Handle video stream
+  useEffect(() => {
+    if (videoRef.current && stream) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [stream]);
 
   return (
     <div
@@ -42,7 +52,7 @@ export const VideoTile = ({
     >
       {/* Video Content Area */}
       <div className="absolute inset-0">
-        {isVideoOff ? (
+        {isVideoOff || !stream ? (
           // Avatar placeholder when video is off
           <div className="flex items-center justify-center h-full bg-video-bg">
             <Avatar className="w-20 h-20 border-2 border-border">
@@ -53,10 +63,14 @@ export const VideoTile = ({
             </Avatar>
           </div>
         ) : (
-          // Video feed placeholder (will be replaced with actual video)
-          <div className="w-full h-full bg-gradient-to-br from-video-bg to-video-overlay flex items-center justify-center">
-            <div className="text-muted-foreground text-sm">Camera feed will appear here</div>
-          </div>
+          // Actual video feed
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted={isLocalUser} // Prevent echo from local video
+            className="w-full h-full object-cover"
+          />
         )}
       </div>
 
