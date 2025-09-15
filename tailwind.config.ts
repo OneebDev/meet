@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,6 +48,23 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Video meeting specific colors
+        video: {
+          bg: "hsl(var(--video-bg))",
+          overlay: "hsl(var(--video-overlay))",
+        },
+        control: {
+          bg: "hsl(var(--control-bg))",
+          hover: "hsl(var(--control-hover))",
+        },
+        subtitle: {
+          bg: "hsl(var(--subtitle-bg))",
+        },
+        translation: {
+          accent: "hsl(var(--translation-accent))",
+        },
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +75,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-video': 'var(--gradient-video)',
+        'gradient-control': 'var(--gradient-control)',
+      },
+      boxShadow: {
+        'video': 'var(--shadow-video)',
+        'control': 'var(--shadow-control)',
+        'glow': 'var(--shadow-glow)',
+      },
+      transitionTimingFunction: {
+        'smooth': 'var(--transition-smooth)',
+        'bounce': 'var(--transition-bounce)',
       },
       borderRadius: {
         lg: "var(--radius)",
